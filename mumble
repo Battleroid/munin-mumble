@@ -4,27 +4,27 @@
 # munin-murmur.py - "murmur stats (User/Bans/Uptime/Channels)" script for munin.
 # Copyright (c) 2012, Natenom / natenom@natenom.name
 
-#Path to Murmur.ice
-iceslice='/usr/share/Ice/slice/Murmur.ice'
+# Path to Murmur.ice
+iceslice = os.environ.get('iceslice', '/usr/share/slice/Murmur.ice')
 
-#Includepath for Ice, this is default for Debian
-iceincludepath="/usr/share/Ice/slice"
+# Includepath for Ice, this is default for Debian
+iceincludepath = os.environ.get('iceincludepath', '/usr/share/Ice/slice')
 
-#Murmur-Port (not needed to work, only for display purposes)
-serverport=64738
+# Murmur-Port (not needed to work, only for display purposes)
+serverport = int(os.environ.get('serverport', '64738'))
 
-#Port where ice listen
-iceport=6502
+# Port where ice listen
+iceport = int(os.environ.get('iceport', '6502'))
 
-#Ice Password to get read access.
-#If there is no such var in your murmur.ini, this can have any value.
-#You can use the values of icesecret, icesecretread or icesecretwrite in your murmur.ini
-icesecret="secureme"
+# Ice Password to get read access.
+# If there is no such var in your murmur.ini, this can have any value.
+# You can use the values of icesecret, icesecretread or icesecretwrite in your murmur.ini
+icesecret = os.environ.get('icesecret', 'secureme')
 
-#MessageSizeMax; increase this value, if you get a MemoryLimitException.
+# MessageSizeMax; increase this value, if you get a MemoryLimitException.
 # Also check this value in murmur.ini of your Mumble-Server.
 # This value is being interpreted in kibiBytes.
-messagesizemax="65535"
+messagesizemax = os.environ.get('messagesizemax', '65535')
 
 import Ice, sys
 Ice.loadSlice("--all -I%s %s" % (iceincludepath, iceslice))
@@ -56,7 +56,7 @@ meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy("Meta:tcp -h 127.0.0.1 -p %s
 try:
     server=meta.getServer(1)
 except Murmur.InvalidSecretException: 
-    print 'Given icesecreatread password is wrong.'
+    print 'Given icesecret password is wrong.'
     ice.shutdown()
     sys.exit(1)
 
