@@ -45,32 +45,36 @@ if (sys.argv[1:]):
     print 'graph_title Murmur (Port %s)' % (serverport)
     print 'graph_vlabel Count'
     print 'users.label Users (All)'
+    print 'usersauth.label Users (Authenticated)'
     print 'usersnotauth.label Users (Not authenticated)'
     print 'uptime.label Uptime in days'
-    print 'chancount.label Channelcount/10'
-    print 'bancount.label Bans on server'
+    print 'channelcount.label Number of channels'
+    print 'bancount.label Number of bans'
     sys.exit(0)
-
 
 meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy("Meta:tcp -h 127.0.0.1 -p %s" % (iceport)))
 try:
-    server=meta.getServer(1)
+    server = meta.getServer(1)
 except Murmur.InvalidSecretException: 
     print 'Given icesecret password is wrong.'
     ice.shutdown()
     sys.exit(1)
 
-#count users
-usersnotauth=0
-users=server.getUsers()
+# count users
+usersnotauth = 0
+usersauth = 0
+users = server.getUsers()
 for key in users.keys():
   if (users[key].userid == -1):
-    usersnotauth+=1
+    usersnotauth += 1
+  else:
+    usersauth += 1
 
 print "users.value %i" % (len(users))
-print "uptime.value %.2f" % (float(meta.getUptime())/60/60/24)
-print "chancount.value %.1f" % (len(server.getChannels())/10)
-print "bancount.value %i" % (len(server.getBans()))
+print "usersauth.value %i" % (usersauth)
 print "usersnotauth.value %i" % (usersnotauth)
+print "uptime.value %.2f" % (float(meta.getUptime())/60/60/24)
+print "channelcount.value %i" % (len(server.getChannels()))
+print "bancount.value %i" % (len(server.getBans()))
   
 ice.shutdown()
