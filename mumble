@@ -5,7 +5,6 @@
 # Copyright (c) 2012, Natenom / natenom@natenom.name
 
 import os
-import sys
 
 # Path to Murmur.ice
 iceslice = os.environ.get('iceslice', '/usr/share/slice/Murmur.ice')
@@ -29,7 +28,7 @@ icesecret = os.environ.get('icesecret', 'secureme')
 # This value is being interpreted in kibiBytes.
 messagesizemax = os.environ.get('messagesizemax', '65535')
 
-import Ice
+import Ice, sys
 Ice.loadSlice("--all -I%s %s" % (iceincludepath, iceslice))
 
 props = Ice.createProperties([])
