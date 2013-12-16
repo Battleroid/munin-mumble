@@ -1,18 +1,18 @@
-munin-mumble
-============
+raidcall-idling
+===============
 
-Creates Munin graphs from the data that a (local) Murmur server provides via it's [Ice](http://www.zeroc.com/ice.html) interface.
+Ever use Raidcall? Do you ever miss those little icons and rewards for the number of hours you've idled away in the server? Well if you use Mumble and can deal with my shoddy work you may be in luck.
 
-Needs Python Ice bindings and a local database of Slice definitions provided by the packages `python-zeroc-ice` and `ice-slice` on Debian 7 (Wheezy).
+Forked from [cmur2/munin-mumble](https://github.com/cmur2/munin-mumble). Excellent plugin for munin and gave me the insight to attempt this.
 
-Install
+Process
 -------
 
-Clone this repository or download the mumble file and create a
-symlink as *root* in /etc/munin/plugins by using e.g.:
+Uses information retrieved about users from Mumble through Ice. Updated via cronjob with `update.py` at an interval you define. I recommend every 5 minutes. Then using Flask a leaderboard of sorts is created with the top idlers!
 
-	cd /etc/munin/plugins; ln -s /path/to/mumble mumble
+Requirements
+------------
 
-Needed configuration is explained in the script itself.
+You must have the following packages installed: `sqlite3`, `python-zeroc-ice`, `python-pip`, `ice34-slice`.
 
-**Don't forget to restart your munin-node deamon.**
+You must use `pip` to install `flask`.
