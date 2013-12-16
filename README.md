@@ -10,6 +10,8 @@ Process
 
 Uses information retrieved about users from Mumble through Ice. Updated via cronjob with `update.py` at an interval you define. I recommend every 5 minutes. Then using Flask a leaderboard of sorts is created with the top idlers!
 
+**Note:** Only registered users will be tracked. Non-registered users are skipped completely.
+
 Requirements
 ------------
 
