@@ -9,6 +9,8 @@ To retrieve an individual's information simply navigate to `http://yourhost:port
 
 Forked from [cmur2/munin-mumble](https://github.com/cmur2/munin-mumble). Excellent plugin for munin that gave me the insight to attempt this.
 
+Uses [sorttable](http://www.kryogenix.org/code/browser/sorttable/) which makes it easy as hell to sort by fields in an HTML table. No dependencies either.
+
 Requirements
 ------------
 
