@@ -3,7 +3,7 @@ raidcall-idling
 
 Ever use Raidcall? Do you ever miss those little icons and rewards for the number of hours you've idled away in the server? Well if you use Mumble and can deal with my shoddy work you may be in luck.
 
-Features a small API as well (needs work though). You can access all users by navigating to `http://yourhost:port/users`. This will return a JSON response will all users and their current points (eventually some more info).
+Features a small API as well (needs work though). You can access all users by navigating to `http://yourhost:port/users`. This will return a JSON response with all users and their current points (eventually some more info).
 
 To retrieve an individual's information simply navigate to `http://yourhost:port/user/username`. This will return a JSON response with that individual's stats.
 
