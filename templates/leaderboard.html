@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block head %}
+	<script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
+{% endblock %}
+{% block header %}
+	<h1>{{ data.0.0 }}</h1>
+	<p>is the idling master. We must take a lesson and learn from his example.</p>
+{% endblock %}
+{% block content %}
+	<table class='sortable'>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Username</th>
+				<th>Points</th>
+				<th>Days</th>
+				<th>Hours</th>
+				<th>Minutes</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for user in data %}
+			{% set mins = user.1*5 %}
+			{% set hours = mins//60 %}
+			<tr>
+				<td>{{ loop.index }}</td>
+				<td>{{ user.0 }}</td>
+				<td>{{ user.1 }}</td>
+				<td>{{ hours//24 }}</td>
+				<td>{{ hours%24 }}</td>
+				<td>{{ mins%60 }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
