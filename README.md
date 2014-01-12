@@ -32,7 +32,4 @@ If you decide to use an update interval other than every five minutes you will n
 Todo
 ----
 
-* Consolidate **all** configurable settings to one file for easy importing.
-* Split up views/controls/files etc so I don't have one giant cluster of functions.
-* Make script check for existence of database, create it if it does not exist.
-* Improve the API.
+* Impending update which will remove the previous method of querying the database and instead use either a MVC kind of system where the database is kept open, or will use SQL-Academy. Will also break up code into multiple parts to keep it organized.
