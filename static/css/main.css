@@ -56,3 +56,23 @@ table > tbody > tr > td {
 th {
 	text-align: left;
 }
+
+table#metrics {}
+
+table#metrics td {
+	text-align: center;
+}
+
+table#metrics th {
+	text-align: center;
+}
+
+table#metrics td {
+	font-size: 36px;
+	font-weight: 300;
+	padding: 20px;
+}
+
+table#metrics td span {
+	color: #adadad;
+}

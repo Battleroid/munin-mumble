@@ -3,11 +3,30 @@
 	<script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
 {% endblock %}
 {% block header %}
-	<h1>{{ data.0.0 }}</h1>
-	<p>is the idling master. We must take a lesson and learn from his example.</p>
+	<h1>{{ data.0.0.0 }}</h1>
+	<p>has melded to their chair.</p>
 {% endblock %}
 {% block content %}
-	<table class='sortable'>
+
+	<table id="metrics">
+		<thead>
+			<tr>
+				<th>Total Registered</th>
+				<th>Accumulated Time</th>
+				<th>Worst Idler</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td id="reg">{{ data.1 }}</td>
+				<td id="time">
+					{{ ((data.2*5)//60)//24 }}<span>d</span> {{ ((data.2*5)//60)%24 }}<span>m</span>
+				</td>
+				<td id="worst">{{ data.3|truncate(16, True) }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class='sortable' id="all">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -19,7 +38,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% for user in data %}
+		{% for user in data.0 %}
 			{% set mins = user.1*5 %}
 			{% set hours = mins//60 %}
 			<tr>
