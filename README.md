@@ -1,11 +1,7 @@
 raidcall-idling
 ===============
 
-Ever use Raidcall? Do you ever miss those little icons and rewards for the number of hours you've idled away in the server? Well if you use Mumble and can deal with my shoddy work you may be in luck.
-
-Features a small API as well (needs work though). You can access all users by navigating to `http://yourhost:port/users`. This will return a JSON response with all users and their current points (eventually some more info).
-
-To retrieve an individual's information simply navigate to `http://yourhost:port/user/username`. This will return a JSON response with that individual's stats.
+Replicates functionality for user 'Ranks' from Raidcall for Mumble. Captures and tracks registered user's time spent on server.
 
 Forked from [cmur2/munin-mumble](https://github.com/cmur2/munin-mumble). Excellent plugin for munin that gave me the insight to attempt this.
 
@@ -26,10 +22,9 @@ Installation
 3. Execute `app.py`.
 
 Be aware if you choose to use a different database name you will need to change the name inside `app.py` and your cronjob. 
-
 If you decide to use an update interval other than every five minutes you will need to change the values in the template `leaderboard.html` to reflect the proper amount of time accumulated.
 
 Todo
 ----
 
-* Impending update which will remove the previous method of querying the database and instead use either a MVC kind of system where the database is kept open, or will use SQL-Academy. Will also break up code into multiple parts to keep it organized.
+* Use jQuery & built-in API to update without reloading page through AJAX.
