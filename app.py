@@ -34,32 +34,31 @@ def page_not_found(e):
 # API
 @app.route('/api/', methods=['GET'])
 def all_users():
+	''' Return all users and other metrics. '''
 	data = query_db('select * from users order by points desc')
 	if data is None:
 		return jsonify({})
-	users = []
-	total = 0
-	for user in data:
-		users.append({'name': user[0], 'points': user[1]})
-		total = total + user[1]
-	return jsonify(users=users, total=total, registered=len(data))
+	total = query_db('select sum(points) from users', (), True)
+	return jsonify(users=data, metrics={'registered': len(data), 'total_time': total[0]})
 
 @app.route('/api/user/<username>', methods=['GET'])
 def get_user(username):
-	data = query_db('select name, points from users where name = ?', (username, ), True)
+	''' Return the information for a single user. '''
+	data = query_db('select * from users where name = ?', (username, ), True)
 	if data is None:
 		return jsonify({})
-	return jsonify({'name': data[0], 'points': data[1]})
+	return jsonify(user={'name': data[0], 'points': data[1]})
 
 # ROUTING
 @app.route('/')
 def default():
 	data = query_db('select * from users order by points desc')
+	time = query_db('select sum(points) from users', (), True)[0]
 	last = data[-1][0]
 	reg = len(data)
-	time = 0
-	for user in data:
-		time += user[1]
+	#time = 0
+	#for user in data:
+	#	time += user[1]
 	return render_template('leaderboard.html', data=(data, reg, time, last))
 
 if __name__ == '__main__':
