@@ -21,7 +21,7 @@
 			<tr>
 				<td id="reg">{{ data.1 }}</td>
 				<td id="time">
-					{{ ((data.2*5)//60)//24 }}<span>d</span> {{ ((data.2*5)//60)%24 }}<span>h</span>
+					{{ "{:,d}".format(((data.2*5)//60)//24) }}<span>d</span> {{ ((data.2*5)//60)%24 }}<span>h</span>
 				</td>
 				<td id="worst">{{ data.3|truncate(16, True) }}</td>
 			</tr>
@@ -45,8 +45,8 @@
 			<tr>
 				<td>{{ loop.index }}</td>
 				<td>{{ user.0 }}</td>
-				<td>{{ user.1 }}</td>
-				<td>{{ hours//24 }}</td>
+				<td>{{ "{:,d}".format(user.1) }}</td>
+				<td>{{ "{:,d}".format(hours//24) }}</td>
 				<td>{{ hours%24 }}</td>
 				<td>{{ mins%60 }}</td>
 			</tr>
