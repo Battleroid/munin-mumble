@@ -1,4 +1,4 @@
-Ranking
+ranking
 =======
 
 Replicates functionality for user 'Ranks' from Raidcall for Mumble. Captures and tracks registered user's time spent on server.
