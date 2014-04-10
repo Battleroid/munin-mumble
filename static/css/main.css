@@ -57,13 +57,11 @@ th {
 	text-align: left;
 }
 
-table#metrics {}
-
-table#metrics td {
-	text-align: center;
+table#metrics {
+	table-layout: fixed;
 }
 
-table#metrics th {
+table#metrics td, table#metrics th {
 	text-align: center;
 }
 
