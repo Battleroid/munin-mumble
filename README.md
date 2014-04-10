@@ -28,3 +28,4 @@ Todo
 ----
 
 * Use jQuery & built-in API to update without reloading page through AJAX.
+* Add separate table to database that stores information such as: registered users, total time, etc
