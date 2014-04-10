@@ -38,8 +38,8 @@ def all_users():
 	data = query_db('select * from users order by points desc')
 	if data is None:
 		return jsonify({})
-	total = query_db('select sum(points) from users', (), True)
-	return jsonify(users=data, metrics={'registered': len(data), 'total_time': total[0]})
+	total = query_db('select sum(points) from users', (), True)[0]
+	return jsonify(users=data, metrics={'registered': len(data), 'total_time': total})
 
 @app.route('/api/user/<username>', methods=['GET'])
 def get_user(username):
@@ -56,9 +56,6 @@ def default():
 	time = query_db('select sum(points) from users', (), True)[0]
 	last = data[-1][0]
 	reg = len(data)
-	#time = 0
-	#for user in data:
-	#	time += user[1]
 	return render_template('leaderboard.html', data=(data, reg, time, last))
 
 if __name__ == '__main__':
