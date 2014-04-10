@@ -41,6 +41,14 @@ def all_users():
 	total = query_db('select sum(points) from users', (), True)[0]
 	return jsonify(users=data, metrics={'registered': len(data), 'total_time': total})
 
+@app.route('/api/metrics', methods=['GET'])
+def get_metrics():
+	''' Return metrics only. '''
+	data = query_db('select count(*), sum(points) from users', (), True)
+	if data is None:
+		return jsonify({})
+	return jsonify(metrics={'registered': data[0], 'total_time': data[1]})
+
 @app.route('/api/user/<username>', methods=['GET'])
 def get_user(username):
 	''' Return the information for a single user. '''
