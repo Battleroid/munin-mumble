@@ -72,6 +72,13 @@ def view_comment(username):
 		return 'No comment.'
 	return comment
 
+@app.route('/view/comment/html/<username>')
+def view_comment_html(username):
+	comment = query_db('select comment from users where name = ?', (username, ), True)[0]
+	if comment is None or len(comment) == 0:
+		return render_template("comment.html", comment="<h1>No comment.</h1>")
+	return render_template("comment.html", comment=comment)
+
 @app.route('/')
 def default():
 	data = query_db('select name, points, date from users order by points desc')
