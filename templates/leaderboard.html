@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% block head %}
 	<script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
+	<!-- Used for fetching comments in tooltips via AJAX -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="{{ url_for('static', filename='js/tooltipster.js') }}"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/tooltipster.css') }}">
+	<script src="{{ url_for('static', filename='js/comment.js') }}"></script>
 	<meta http-equiv="refresh" content="60;">
 {% endblock %}
 {% block header %}

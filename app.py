@@ -35,11 +35,18 @@ def page_not_found(e):
 @app.route('/api/', methods=['GET'])
 def all_users():
 	''' Return all users and other metrics. '''
-	data = query_db('select * from users order by points desc')
+	data = query_db('select name, points, date from users order by points desc')
 	if data is None:
 		return jsonify({})
 	total = query_db('select sum(points) from users', (), True)[0]
-	return jsonify(users=data, metrics={'registered': len(data), 'total_time': total})
+	users = []
+	for user in data:
+		users.append({
+			'username': user[0],
+			'points': user[1],
+			'last_seen': user[2]
+			})
+	return jsonify(users=users, metrics={'total_registered': len(data), 'total_time': total})
 
 @app.route('/api/metrics', methods=['GET'])
 def get_metrics():
@@ -47,24 +54,31 @@ def get_metrics():
 	data = query_db('select count(*), sum(points) from users', (), True)
 	if data is None:
 		return jsonify({})
-	return jsonify(metrics={'registered': data[0], 'total_time': data[1]})
+	return jsonify({'total_registered': data[0], 'total_time': data[1]})
 
 @app.route('/api/user/<username>', methods=['GET'])
 def get_user(username):
 	''' Return the information for a single user. '''
-	data = query_db('select * from users where name = ?', (username, ), True)
+	data = query_db('select name, points, date from users where name = ?', (username, ), True)
 	if data is None:
 		return jsonify({})
-	return jsonify(user={'name': data[0], 'points': data[1]})
+	return jsonify({'username': data[0], 'points': data[1], 'last_seen': data[2]})
 
 # ROUTING
+@app.route('/view/comment/<username>')
+def view_comment(username):
+	comment = query_db('select comment from users where name = ?', (username, ), True)[0]
+	if comment is None or len(comment) == 0:
+		return 'No comment.'
+	return comment
+
 @app.route('/')
 def default():
-	data = query_db('select * from users order by points desc')
+	data = query_db('select name, points, date from users order by points desc')
 	time = query_db('select sum(points) from users', (), True)[0]
 	last = data[-1][0]
 	reg = len(data)
 	return render_template('leaderboard.html', data=(data, reg, time, last))
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0')
+	app.run(host='0.0.0.0',port=9988)

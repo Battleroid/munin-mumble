@@ -7,17 +7,21 @@ con = None
 try:
 	# get
 	m = mumble.connect()
-	names = []
+	users = []
 	data = m.getUsers()
 	for key in data.keys():
 		if (data[key].userid != -1):
-			names.append([data[key].name])
+			name = data[key].name.decode('utf-8')
+			comment = data[key].comment.decode('utf-8')
+			users.append([name, comment])
 	# sql
 	con = sql.connect(sys.argv[1])
 	cur = con.cursor()
-	cur.executemany("update users set points = points + 1 where name = ?;", names)
-	cur.executemany("insert or ignore into users (name, points) values (?, 1);", names)
-	cur.executemany("update users set date = datetime('now') where name = ?;", names)
+	for user in users:
+		cur.execute("update users set points = points + 1 where name = ?;", (user[0],))
+		cur.execute("update users set comment = ? where name = ?;", (user[1], user[0],))
+		cur.execute("insert or ignore into users (name, comment, points) values (?, ?, 1);", (user[0], user[1],))
+		cur.execute("update users set date = datetime('now') where name = ?;", (user[0],))
 	con.commit()
 except sql.Error, e:
 	if con:

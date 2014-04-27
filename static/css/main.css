@@ -74,3 +74,17 @@ table#metrics td {
 table#metrics td span {
 	color: #adadad;
 }
+
+.tooltip {
+	background: #fbffbd;
+	border: 1px solid #000;
+	border-radius: 0px;
+	color: #000;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip .tooltipster-content {
+	padding: 5px;
+	font-size: 12px;
+	line-height: 1;
+}
