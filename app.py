@@ -88,4 +88,4 @@ def default():
 	return render_template('leaderboard.html', data=(data, reg, time, last))
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0',port=9988)
+	app.run(host='0.0.0.0')
