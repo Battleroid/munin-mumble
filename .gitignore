@@ -1,0 +1,4 @@
+.idea
+static/.webassets-cache
+*.pyc
+*.db
