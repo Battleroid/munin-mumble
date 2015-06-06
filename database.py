@@ -1,4 +1,4 @@
-from peewee import SqliteDatabase, Model, PrimaryKeyField, CharField, IntegerField, DateTimeField
+from peewee import SqliteDatabase, Model, PrimaryKeyField, CharField, IntegerField
 
 db = SqliteDatabase('ranks.db')
 
