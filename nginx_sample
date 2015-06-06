@@ -1,0 +1,15 @@
+server {
+	listen 80;
+	server_name your.url;
+
+	location / {
+		uwsgi_pass unix:///tmp/rankings.sock;
+		include uwsgi_params;
+		expires modified +310s;
+		add_header Cache-Control "public";
+	}
+
+	location /static {
+		root /path/to/rankings;
+	}
+}
