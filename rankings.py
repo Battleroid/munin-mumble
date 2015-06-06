@@ -1,8 +1,25 @@
-from flask import Flask, render_template
-from database import User
+from flask import Flask, render_template, g
+from database import User, db
 
 # flask
 app = Flask(__name__)
+
+@app.before_first_request
+def setup_db():
+    db.connect()
+    if not User.table_exists():
+        User.create_table()
+    db.close()
+
+@app.before_request
+def before():
+    g.db = db
+    g.db.connect()
+
+@app.after_request
+def after(resp):
+    g.db.close()
+    return resp
 
 @app.route('/', methods=('GET',))
 def index():
@@ -12,3 +29,4 @@ def index():
 if __name__ == '__main__':
     if not User.table_exists():
         User.create_table()
+    app.run(debug=True)
