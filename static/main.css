@@ -1,0 +1,46 @@
+table {
+	table-layout: fixed;
+}
+
+#hero h1, #hero h3 {
+	display: inline-block;
+	padding: 10px;
+}
+
+@keyframes swing {
+	0%, 100% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.25);
+	}
+}
+
+#hero h1 {
+	z-index: 10;
+	font-weight: 700;
+	animation-name: swing; 
+	animation-iteration-count: infinite;
+	animation-duration: 3s;
+}
+
+.pixel {
+	image-rendering: optimizeSpeed;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -o-crisp-edges; 
+	image-rendering: -webkit-optimize-contrast; 
+	image-rendering: pixelated;
+	image-rendering: optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor; 
+}
+
+#best {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 16px;
+	width: 16px;
+	background-image: url("/static/crown.png");
+	transform: translateY(-70%) rotate(-20deg) scale(3.5);
+}

@@ -1,31 +1,33 @@
 rankings
 ========
 
-Replicates functionality for user 'Ranks' from Raidcall for Mumble. Captures and tracks registered user's time spent on server.
+Ever used Raidcall? Want something to sorta kinda fill in the missing icons for idle time? Rankings might just be what you're looking for.
 
-Forked from [cmur2/munin-mumble](https://github.com/cmur2/munin-mumble). Excellent plugin for munin that gave me the insight to attempt this.
-
-Uses [sorttable](http://www.kryogenix.org/code/browser/sorttable/) which makes it easy as hell to sort by fields in an HTML table. No dependencies either.
-
-Requirements
+requirements
 ------------
 
-You will need `python-pip` installed to install Flask. To install Flask run `pip install flask`.
+Install the following via apt or whatever your package manager is:
 
-You will need following packages installed: `python-zeroc-ice`, `ice-slice`, and `sqlite3` installed.
+Debian/Ubuntu:
 
-Installation
-------------
+    python-zeroc-ice ice-slice sqlite3 python-sqlite
 
-1. First create the database by running `sqlite3 idle.db < schema.sql`.
-2. Create a cronjob to run every five minutes (or however often you wish). Sample: `*/5 * * * * /path/to/update.py /path/to/your/database.db`.
-3. Execute `app.py`.
+Install the requirements in the text file using pip:
 
-Be aware if you choose to use a different database name you will need to change the name inside `app.py` and your cronjob. 
-If you decide to use an update interval other than every five minutes you will need to change the values in the template `leaderboard.html` to reflect the proper amount of time accumulated.
+    pip install -r requirements.txt
 
-Todo
+I recommend using virtualenv so you can avoid having a huge clusterfuck of varying version of packages. If you don't, no biggie.
+
+That's it for installing things.
+
+configuration
+-------------
+
+1. Creating the database is simple, just run `python rankings.py`. It'll check if the database already exists, if it doesn't it'll create it right there. If it does exist, no worries, nothing will be overwritten.
+2. To update the database you'll need to add a cronjob. You can customize the interval to whatever you want, but I typically go for every 5 minutes (ex: `*/5 * * * * /path/to/util.py`). Running `util.py` will do the necessary check and update the database in one go.
+3. The provided uWSGI ini should be good enough (at least I hope it is), just setup supervisor or something with it using `uwsgi --ini rankings.conf`. If you don't want to use uwsgi, just add `app.run()` with the appropriate host at the end of the `if '__name__'` spiel in `rankings.py` and run it like any other Python script.
+
+misc
 ----
 
-* Use jQuery & built-in API to update without reloading page through AJAX.
-* Add separate table to database that stores information such as: registered users, total time, etc
+The [crown](static/crown.png) is from Raidcall. I hope to replace it with something else later on.
