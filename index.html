@@ -52,6 +52,18 @@
 <li>The provided uWSGI ini should be good enough (at least I hope it is), just setup supervisor or something with it using <code>uwsgi --ini rankings.conf</code>. If you don't want to use uwsgi, just add <code>app.run()</code> with the appropriate host at the end of the <code>if '__name__'</code> spiel in <code>rankings.py</code> and run it like any other Python script.</li>
 </ol>
 
+<p>Sample uWSGI ini:</p>
+
+<pre><code>[uwsgi]
+socket = /tmp/rankings.sock
+master = true
+processes = 1
+module = rankings
+callable = app
+; uncomment if using virtualenv
+; virtualenv = venv
+</code></pre>
+
 <h2>
 <a id="misc" class="anchor" href="#misc" aria-hidden="true"><span class="octicon octicon-link"></span></a>misc</h2>
 
