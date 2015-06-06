@@ -4,7 +4,12 @@ from database import User
 
 def connect(serverid=1):
     Ice.loadSlice('', ['-I', Ice.getSliceDir(), '/usr/share/slice/Murmur.ice'])
-    comm = Ice.initialize()
+    prop = Ice.createProperties([])
+    prop.setProperty('Ice.MessageSizeMax', '65535')
+    prop.setProperty('Ice.ImplicitContext', 'Shared')
+    prop_data = Ice.InitializationData()
+    prop_data.properties = prop
+    comm = Ice.initialize(prop_data)
     proxy = comm.stringToProxy("Meta:tcp -p 6502")
     import Murmur
     meta = Murmur.MetaPrx.checkedCast(proxy)
