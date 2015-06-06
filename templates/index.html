@@ -37,7 +37,7 @@
 						{% for user in users %}
 							<tr>
 								<td>{{ user.username }}</td>
-								<td>{{ user.points }}</td>
+								<td>{{ "{:,d}".format(user.points) }}</td>
 							</tr>
 						{% endfor %}
 					</tbody>
