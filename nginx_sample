@@ -11,5 +11,6 @@ server {
 
 	location /static {
 		root /path/to/rankings;
+		expires modified +1w;
 	}
 }

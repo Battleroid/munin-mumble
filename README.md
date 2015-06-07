@@ -28,6 +28,13 @@ configuration
 3. The provided uWSGI ini should be good enough (at least I hope it is), just setup supervisor or something with it using `uwsgi --ini rankings.conf`. If you don't want to use uwsgi, just add `app.run()` with the appropriate host at the end of the `if '__name__'` spiel in `rankings.py` and run it like any other Python script.
 4. You'll need something like Nginx or Apache to proxy to the uWSGI process. I've included a [working] nginx sample, see [nginx_sample](nginx_sample).
 
+todo
+----
+
+- [ ] add lower tier crowns for 2nd & 3rd
+- [ ] add total time accumulated (years, months, days, minutes)
+- [ ] basic API with marshmallow & flask-restful (?, should I even bother?)
+
 misc
 ----
 
