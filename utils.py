@@ -23,16 +23,18 @@ def get_users(server):
             usernames.append(users[key].name)
     return usernames
 
-def update_users(server):
+def update_users(server, interval=1):
     current_users = get_users(server)
     query = User.select()
     for user in current_users:
         if query.where(User.username == user).exists():
             u = query.where(User.username == user).get()
-            u.points += 1
+            u.points += interval
             u.save()
         else:
             User.create(username=user)
 
 if __name__ == '__main__':
+    import os
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
     update_users(connect())
