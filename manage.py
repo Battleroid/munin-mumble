@@ -22,6 +22,7 @@ class CreateDB(Command):
             User.create_table()
 
 def check_db():
+    'Check if DB exists, ask to create, if denied, abort.'
     from database import User
     if not User.table_exists():
         if prompt_bool('Database does not exist, create it now?'):
