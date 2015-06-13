@@ -8,51 +8,63 @@
 	</head>
 	<body>
 		{% if users|length > 0 %}
-		<div class="section red darken-2">
-			<div id="hero" class="container">
-				<div class="row center box">
-					{# top user #}
-					<div class="col s12 m12 l12">
-						<h1 class="grey-text text-darken-4 grey lighten-4 z-depth-4"><i id="best" class="pixel"></i>{{ users[0].username }}</h1>
+			<div class="section red darken-2">
+				<div id="hero" class="container">
+					<div class="row center box">
+						{# top user #}
+						<div class="col s12 m12 l12">
+							<h1 class="grey-text text-darken-4 grey lighten-4 z-depth-4"><i id="best" class="pixel"></i>{{ users[0].username }}</h1>
+						</div>
+						{# second and third users #}
+						{% with three = 'l6' if users|length > 2 else 'l12' %}
+							<div class="col s12 m12 {{ three }}"><h3 class="grey-text text-darken-4 grey lighten-4 z-depth-2"><i id="second" class="pixel"></i>{{ users[1].username }}</h3></div>
+							{% if three == 'l6' %}
+								<div class="col s12 m12 {{ three }}"><h3 class="grey-text text-darken-4 grey lighten-4 z-depth-2"><i id="third" class="pixel"></i>{{ users[2].username }}</h3></div>
+							{% endif %}
+						{% endwith %}
 					</div>
-					{# second and third users #}
-					{% with three = 'l6' if users|length > 2 else 'l12' %}
-						<div class="col s12 m12 {{ three }}"><h3 class="grey-text text-darken-4 grey lighten-4 z-depth-2">{{ users[1].username }}</h3></div>
-						{% if three == 'l6' %}
-							<div class="col s12 m12 {{ three }}"><h3 class="grey-text text-darken-4 grey lighten-4 z-depth-2">{{ users[2].username }}</h3></div>
-						{% endif %}
-					{% endwith %}
 				</div>
 			</div>
-		</div>
-		<div class="section white">
-			<div class="row container">
-				<table class="flow-text hoverable">
-					<thead>
-						<tr>
-							<th data-field="name">Name</th>
-							<th data-field="points">Points</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for user in users %}
-							<tr>
-								<td>{{ user.username }}</td>
-								<td>{{ "{:,d}".format(user.points) }}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</div>
-		{% else %}
-			<div class="container">
-				<div class="box center valign-center">
-					<h1>You need users, you dummy.</h1>
+			<div class="section grey lighten-2">
+				<div class="row container">
+					<div class="col s12 m3 l3 center"><i class="medium mdi-social-group"></i> <h5 class="grey-text text-darken-2"><span class="stand-out">{{ "{:,d}".format(total_users) }}</span> users</h5></div>
+					<div class="col s12 m3 l3 center"><i class="medium mdi-social-plus-one"></i> <h5 class="grey-text text-darken-2"><span class="stand-out">{{ total_points }}</span>pts</h5></div>
+					<div class="col s12 m3 l3 center"><i class="medium mdi-device-access-time"></i> <h5 class="grey-text text-darken-2"><span class="stand-out">{{ time_spent.days }}d</span> <span class="stand-out">{{ time_spent.hours }}h</span> total</h5></div>
+					<div class="col s12 m3 l3 center"><i class="medium mdi-social-person"></i> <h5 class="grey-text text-darken-2"><span class="stand-out">{{ worst_user.username }}</span> is worst</h5></div>
 				</div>
 			</div>
-		{% endif %}
-		<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-		<script src='//cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js'></script>
-	</body>
-</html>
+			<div class="section white">
+				<div class="row container">
+					<div class="col s12">
+						<table class="flow-text hoverable">
+							<thead>
+								<tr>
+									<th data-field"place">#</th>
+									<th data-field="name">Name</th>
+									<th data-field="points">Points</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for user in users %}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>{{ user.username }}</td>
+										<td>{{ "{:,d}".format(user.points) }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			{% else %}
+				<div class="container">
+					<div class="box center valign-center">
+						<h1>You need users, you dummy.</h1>
+					</div>
+				</div>
+			{% endif %}
+			<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+			<script src='//cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js'></script>
+		</body>
+	</html>
