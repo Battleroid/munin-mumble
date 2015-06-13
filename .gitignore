@@ -4,3 +4,4 @@ static/.webassets-cache
 *.db
 venv/
 *.bak
+nohup.out
