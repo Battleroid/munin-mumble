@@ -31,9 +31,9 @@ configuration
 todo
 ----
 
-- [ ] add lower tier crowns for 2nd & 3rd
-- [ ] add total time accumulated (years, months, days, minutes)
-- [ ] basic API with marshmallow & flask-restful (?, should I even bother?)
+- [x] add lower tier crowns for 2nd & 3rd
+- [x] add total time accumulated (years, months, days, minutes)
+- [ ] basic API with marshmallow & flask-restful, or screw that and just use jsonify :-) (?, should I even bother?)
 
 misc
 ----
