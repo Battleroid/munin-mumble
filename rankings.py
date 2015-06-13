@@ -23,8 +23,13 @@ def after(resp):
 
 @app.route('/', methods=('GET',))
 def index():
-    users = User.select().limit(100).order_by(User.points.desc()).dicts()[:]
-    return render_template('index.html', title='Leaderboard', users=users)
+    all_users = User.select().order_by(User.points.desc())
+    all_users_dict = all_users.dicts()[:]
+    worst_user = all_users_dict[-1]
+    total_users = all_users.count()
+    total_points = sum(p['points'] for p in all_users_dict)
+    time_spent = dict(days='{:,d}'.format(((total_points * 5) // 60) // 24), hours='{:,d}'.format(((total_points * 5) // 60) % 24))
+    return render_template('index.html', title='Leaderboard', users=all_users_dict[:100], total_users=total_users, total_points='{:,d}'.format(total_points), time_spent=time_spent, worst_user=worst_user)
 
 if __name__ == '__main__':
     if not User.table_exists():
